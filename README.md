@@ -10,7 +10,7 @@ NUXT_ENV_API_URL=YOUR_BACKEND_URL # For example NUXT_ENV_CATALOG_API_URL=http://
 > If you are using Amazon Linux as Operating System you can install nodejs packages with this following command:
 ```sh
 $ sudo yum install -y gcc-c++ make
-$ curl -sL https://rpm.nodesource.com/setup_14.x | sudo -E bash -
+$ curl -sL https://rpm.nodesource.com/setup_18.x | sudo -E bash -
 ```
 
 ## Run the application
