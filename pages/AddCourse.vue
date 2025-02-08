@@ -78,6 +78,7 @@
                   </v-text-field>
                </div>
             </div>
+
             <v-divider class="my-2"></v-divider>
             <div
                class="col-12 pa-0 py-2 d-flex flex-column flex-md-row justify-start align-start"
@@ -120,6 +121,7 @@
                   </v-text-field>
                </div>
             </div>
+
             <v-divider class="my-2"></v-divider>
             <div
                class="col-12 pa-0 py-2 d-flex flex-column flex-md-row justify-start align-start"
@@ -163,6 +165,7 @@
                   </v-select>
                </div>
             </div>
+
             <v-divider class="my-2"></v-divider>
             <div
                class="col-12 pa-0 py-2 d-flex flex-column flex-md-row justify-start align-start"
@@ -205,6 +208,7 @@
                   </v-file-input>
                </div>
             </div>
+
             <v-divider class="my-2"></v-divider>
             <div
                class="col-12 pa-0 py-2 d-flex flex-column flex-md-row justify-start align-start"
@@ -242,6 +246,7 @@
                   </v-text-field>
                </div>
             </div>
+
             <v-divider class="my-2"></v-divider>
             <div class="col-12 pa-0 py-2">
                <div
@@ -287,6 +292,48 @@
                   </div>
                </div>
             </div>
+
+            <v-divider class="my-2"></v-divider>
+            <div
+               class="col-12 pa-0 py-2 d-flex flex-column flex-md-row justify-start align-start"
+            >
+               <div
+                  class="col-12 col-md-5 pa-0 d-flex flex-column pb-2 pb-md-0 pr-md-2"
+               >
+                  <span class="font-weight-bold textPrimary--text"
+                     >Course Price</span
+                  >
+                  <span class="text-caption grey--text"
+                     >Course Price for course catalog.</span
+                  >
+               </div>
+               <div
+                  class="col-12 col-md-7 pa-0 pl-md-3 d-flex flex-row align-self-center"
+               >
+               <v-text-field
+                  v-model="form.price"
+                  label="Price"
+                  outlined
+                  dense
+                  :rules="rules.price"
+                  hide-details="auto"
+                  class="rounded-lg text-body-2"
+                  type="number"
+                  color="primary"
+               >
+                  <template v-slot:label>
+                     <div class="tw-text-sm">Price</div>
+                  </template>
+                  <template v-slot:prepend-inner>
+                     <div class="d-flex flex-row tw-h-6 align-center mr-1 grey--text">
+                        <font-awesome-icon icon="dollar-sign" class="tw-text-xs" />
+                     </div>
+                  </template>
+               </v-text-field>
+
+               </div>
+            </div>
+
             <v-divider class="my-2"></v-divider>
             <div class="col-12 pa-0 py-2 d-flex flex-column">
                <v-btn
@@ -314,7 +361,7 @@ export default {
          title: "",
          level: "",
          category: "",
-         price: 0,
+         price: '',
       },
       rules: {
          id: [(v) => !!v || "Course ID is required!"],
@@ -322,6 +369,7 @@ export default {
          level: [(v) => !!v || "Course Level is required!"],
          category: [(v) => !!v || "Category is required!"],
          desc: [(v) => !!v || "Description is required!"],
+         price: [(v) => !!v || "Price is required!"],
          group: [(v) => !!v || "Group is required!"],
          coverImage: [(v) => !!v || "Cover image is required!"],
       },
