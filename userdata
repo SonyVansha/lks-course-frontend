@@ -1,9 +1,9 @@
 echo "step1.install dependencies"
-yum install git httpd gcc-c++ make -y
+sudo yum install git httpd gcc-c++ make -y
 curl -sL https://rpm.nodesource.com/setup_18.x | sudo -E bash -
-yum install nodejs -y
-systemctl start httpd
-systemctl enable httpd
+sudo yum install nodejs -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
 
 echo "step2.clone git repo"
 mkdir /home/ec2-user/lks-course-frontend
@@ -28,6 +28,6 @@ printf " ProxyPreserveHost On\n" >> /etc/httpd/conf.d/proxy.conf
 printf " ProxyPass /api/ http://internal-lks-lb-backend-1736021725.us-east-1.elb.amazonaws.com/api/\n" >> /etc/httpd/conf.d/proxy.conf
 printf " ProxyPassReverse /api/ http://internal-lks-lb-backend-1736021725.us-east-1.elb.amazonaws.com/api/\n" >>/etc/httpd/conf.d/proxy.conf
 printf "</Virtualhost>\n" >> /etc/httpd/conf.d/proxy.conf
-systemctl restart httpd
-systemctl status httpd
+sudo systemctl restart httpd
+sudo systemctl status httpd
 echo finish

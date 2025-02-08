@@ -3,7 +3,8 @@
 ## Environment Setup
 > Create .env file in root folder
 ```sh
-NUXT_ENV_API_URL=YOUR_BACKEND_URL # For example NUXT_ENV_CATALOG_API_URL=http://YOUR_ECS_LB
+NUXT_ENV_API_URL_CATALOG=YOUR_ENV_CATALOG_API_URL
+NUXT_ENV_API_URL_ORDER=YOUR_ENV_ORDER_API_URL
 ```
 
 ### Pre-Requirment
