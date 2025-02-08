@@ -81,6 +81,9 @@ export default {
             family: "Roboto",
          },
          icons: "md",
+         generate: {
+            fallback: true
+         }
       },
    },
 

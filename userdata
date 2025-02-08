@@ -17,17 +17,17 @@ printf "NUXT_ENV_API_URL=http://lks-lb-frontend-716151330.us-east-1.elb.amazonaw
 echo "step4.install and run application"
 npm install --prefix /home/ec2-user/lks-course-frontend/
 npm run generate --prefix /home/ec2-user/lks-course-frontend/
-cp -R /home/ec2-user/lks-course-frontend/dist/* /var/www/html
+sudo cp -R /home/ec2-user/lks-course-frontend/dist/* /var/www/html
 
 echo "step5.create virtualhost"
-touch /etc/httpd/conf.d/proxy.conf
-printf "<Virtualhost *:80>\n" >> /etc/httpd/conf.d/proxy.conf
-printf 'Header set Access-Control-Allow-Origin "*"\n' >> /etc/httpd/conf.d/proxy.conf
-printf 'Header set Access-Control-Allow-Methods "GET, PUT, POST, DELETE,PATCH"\n' >> /etc/httpd/conf.d/proxy.conf
-printf " ProxyPreserveHost On\n" >> /etc/httpd/conf.d/proxy.conf
-printf " ProxyPass /api/ http://internal-lks-lb-backend-1736021725.us-east-1.elb.amazonaws.com/api/\n" >> /etc/httpd/conf.d/proxy.conf
-printf " ProxyPassReverse /api/ http://internal-lks-lb-backend-1736021725.us-east-1.elb.amazonaws.com/api/\n" >>/etc/httpd/conf.d/proxy.conf
-printf "</Virtualhost>\n" >> /etc/httpd/conf.d/proxy.conf
+sudo touch /etc/httpd/conf.d/proxy.conf
+echo "<VirtualHost *:80>" | sudo tee -a /etc/httpd/conf.d/proxy.conf
+echo 'Header set Access-Control-Allow-Origin "*"' | sudo tee -a /etc/httpd/conf.d/proxy.conf
+echo 'Header set Access-Control-Allow-Methods "GET, PUT, POST, DELETE, PATCH"' | sudo tee -a /etc/httpd/conf.d/proxy.conf
+echo " ProxyPreserveHost On" | sudo tee -a /etc/httpd/conf.d/proxy.conf
+echo " ProxyPass /api/ http://internal-lks-lb-backend-1736021725.us-east-1.elb.amazonaws.com/api/" | sudo tee -a /etc/httpd/conf.d/proxy.conf
+echo " ProxyPassReverse /api/ http://internal-lks-lb-backend-1736021725.us-east-1.elb.amazonaws.com/api/" | sudo tee -a /etc/httpd/conf.d/proxy.conf
+echo "</VirtualHost>" | sudo tee -a /etc/httpd/conf.d/proxy.conf
 sudo systemctl restart httpd
 sudo systemctl status httpd
 echo finish
