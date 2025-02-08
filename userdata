@@ -1,0 +1,33 @@
+echo "step1.install dependencies"
+yum install git httpd gcc-c++ make -y
+curl -sL https://rpm.nodesource.com/setup_18.x | sudo -E bash -
+yum install nodejs -y
+systemctl start httpd
+systemctl enable httpd
+
+echo "step2.clone git repo"
+mkdir /home/ec2-user/lks-course-frontend
+git clone https://github.com/SonyVansha/lks-course-frontend.git /home/ec2-user/lks-course-frontend
+echo $(ls /home/ec2-user/lks-course-frontend)
+
+echo "step3.create environment"
+touch /home/ec2-user/lks-course-frontend/.env
+printf "NUXT_ENV_API_URL=http://lks-lb-frontend-716151330.us-east-1.elb.amazonaws.com" >> /home/ec2-user/lks-course-frontend/.env
+
+echo "step4.install and run application"
+npm install --prefix /home/ec2-user/lks-course-frontend/
+npm run generate --prefix /home/ec2-user/lks-course-frontend/
+cp -R /home/ec2-user/lks-course-frontend/dist/* /var/www/html
+
+echo "step5.create virtualhost"
+touch /etc/httpd/conf.d/proxy.conf
+printf "<Virtualhost *:80>\n" >> /etc/httpd/conf.d/proxy.conf
+printf 'Header set Access-Control-Allow-Origin "*"\n' >> /etc/httpd/conf.d/proxy.conf
+printf 'Header set Access-Control-Allow-Methods "GET, PUT, POST, DELETE,PATCH"\n' >> /etc/httpd/conf.d/proxy.conf
+printf " ProxyPreserveHost On\n" >> /etc/httpd/conf.d/proxy.conf
+printf " ProxyPass /api/ http://internal-lks-lb-backend-1736021725.us-east-1.elb.amazonaws.com/api/\n" >> /etc/httpd/conf.d/proxy.conf
+printf " ProxyPassReverse /api/ http://internal-lks-lb-backend-1736021725.us-east-1.elb.amazonaws.com/api/\n" >>/etc/httpd/conf.d/proxy.conf
+printf "</Virtualhost>\n" >> /etc/httpd/conf.d/proxy.conf
+systemctl restart httpd
+systemctl status httpd
+echo finish

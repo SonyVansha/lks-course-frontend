@@ -141,7 +141,7 @@ export default {
             this.loading = true;
             this.catalogData = [];
             const res = await this.$axios.get(
-               `${process.env.NUXT_ENV_API_URL}/api/v1/order`
+               `${process.env.NUXT_ENV_API_URL_ORDER}/api/v1/order`
             );
 
             const resData = res.data;
@@ -167,7 +167,7 @@ export default {
             this.loadingDelete = true;
             this.catalogData = [];
             const res = await this.$axios.delete(
-               `${process.env.NUXT_ENV_API_URL}/api/v1/order/${id}`
+               `${process.env.NUXT_ENV_API_URL_ORDER}/api/v1/order/${id}`
             );
             const resData = res.data;
             if (resData.status == "OK") {
